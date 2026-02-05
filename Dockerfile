@@ -12,4 +12,4 @@ RUN bun install --frozen-lockfile
 EXPOSE 3000
 
 # Command to run the application
-CMD ["bun", "run", "src/index.ts"]
+CMD ["/bin/sh", "-c", "bun run migrate && exec bun run src/index.ts"]
