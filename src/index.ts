@@ -5,14 +5,14 @@ import { users } from "./db/schema";
 
 const app = new Hono();
 
-const origin = process.env.ORIGIN
-  ? [process.env.ORIGIN, "healthcheck.railway.app"]
-  : "*";
+// Health check endpoint - defined first, no CORS middleware
+app.get("/health", (c) => c.text("OK"));
 
+// Apply CORS only to API routes
 app.use(
-  "*",
+  "/api/*",
   cors({
-    origin,
+    origin: process.env.ORIGIN || "*",
     allowHeaders: ["Content-Type", "Authorization"],
     allowMethods: ["POST", "GET", "OPTIONS"],
     exposeHeaders: ["Content-Length"],
@@ -21,20 +21,18 @@ app.use(
   })
 );
 
-app.get("/health", (c) => c.text("OK", 200));
-
 app.get("/", (c) => c.text("Hello Hono!"));
 
-app.get("/users", async (c) => {
+app.get("/api/users", async (c) => {
   const allUsers = await db.select().from(users);
   return c.json(allUsers);
 });
 
-const port = parseInt(process.env.PORT!) || 3000;
-console.log(`Running at http://0.0.0.0:${port}`);
+const port = parseInt(process.env.PORT || "3000");
+console.log(`Server starting on http://0.0.0.0:${port}`);
 
 Bun.serve({
   fetch: app.fetch,
   port,
-  hostname: '0.0.0.0'
+  hostname: "0.0.0.0",
 });

@@ -1,8 +1,10 @@
 [build]
-builder = "NIXPACKS"
-buildCommand = "bun install"
+builder = "DOCKERFILE"
+dockerfilePath = "Dockerfile"
 
 [deploy]
 startCommand = "bun run migrate && bun run src/index.ts"
 healthcheckPath = "/health"
 healthcheckTimeout = 300
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 3
