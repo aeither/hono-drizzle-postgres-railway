@@ -2,7 +2,7 @@
 
 A powerful Hono Backend with Drizzle and Postgres for Node.js/Bun
 
-[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/hIiRi5?referralCode=CODE)
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/hIiRi5?referralCode=CREDITS)
 
 ## Overview
 
