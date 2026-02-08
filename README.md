@@ -1,4 +1,4 @@
-# REST API with DB
+# Hono Drizzle Postgres Starter
 
 A powerful Hono Backend with Drizzle and Postgres for Node.js/Bun
 
